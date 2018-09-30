@@ -1,4 +1,4 @@
-@model WWM.Domain.Entities.Customer
+@model WWM.Application.Customers.Models.CustomerDetailModel
 
 @{
     ViewData["Title"] = "Details";
@@ -21,6 +21,30 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PostalCode)
         </dd>
     </dl>
 </div>

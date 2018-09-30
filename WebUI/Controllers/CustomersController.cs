@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebUI.Infrastructure;
 using WebUI.Models;
+using WWM.Application.Customers.Queries;
 using WWM.Domain.Entities;
 using WWM.Persistence;
 
 namespace WebUI.Controllers
 {
-    public class CustomersController : Controller
+    public class CustomersController : BaseController
     {
         private readonly AppDbContext _context;
 
@@ -23,7 +25,7 @@ namespace WebUI.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            return View(await Mediator.Send(new GetCustomerList()));
         }
 
         // GET: Customers/Details/5
@@ -33,14 +35,17 @@ namespace WebUI.Controllers
             {
                 return NotFound();
             }
+            return View(await Mediator.Send(new GetCustomerDetail{Id = id.Value}));
+        }
 
-            var customer = await _context.Customers.FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
+        // GET: Customers/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
-
-            return View(customer);
+            return View(await Mediator.Send(new GetCustomerDetail { Id = id.Value }));
         }
 
         // GET: Customers/Create
@@ -62,22 +67,6 @@ namespace WebUI.Controllers
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(customer);
-        }
-
-        // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
             }
             return View(customer);
         }

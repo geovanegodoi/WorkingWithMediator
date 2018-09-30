@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WWM.Domain.Entities;
+﻿using WWM.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace WWM.Persistence
 {
