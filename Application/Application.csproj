@@ -6,7 +6,7 @@
     <ProjectGuid>{774FB58C-32A0-49B4-88D9-DF5FEA0C0577}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Application</RootNamespace>
+    <RootNamespace>WWM.Application</RootNamespace>
     <AssemblyName>Application</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
   </PropertyGroup>

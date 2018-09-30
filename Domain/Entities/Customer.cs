@@ -1,5 +1,5 @@
 ﻿using System;
-namespace WebUI.Models
+namespace WWM.Domain.Entities
 {
     public class Customer
     {
