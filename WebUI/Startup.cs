@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebUI.Models;
+using WWM.Persistence;
 
 namespace WebUI
 {
@@ -21,7 +22,7 @@ namespace WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebUIContext>(opt => opt.UseInMemoryDatabase("WebUi_DB"));
+            services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("APP_DB"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
