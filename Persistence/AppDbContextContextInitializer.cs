@@ -21,8 +21,24 @@ namespace WWM.Persistence
         {
             var customers = new[]
             {
-            new Customer { Name = "Geovane de Godoi", Email = "geovane.godoi@mail.com" },
-            new Customer { Name = "Vanessa Pistoni Godoi", Email = "vanessa.godoi@mail.com"}
+                new Customer { 
+                    Name = "Geovane de Godoi", 
+                    Email = "geovane.godoi@mail.com", 
+                    Phone = "11982899531", 
+                    Address = "Rua Antonio Sibinel, 165", 
+                    City = "Jundiai", 
+                    Country = "Brasil", 
+                    PostalCode = "13212160" 
+                },
+                new Customer { 
+                    Name = "Vanessa Pistoni Godoi", 
+                    Email = "vanessa.godoi@mail.com", 
+                    Phone = "11952821140", 
+                    Address = "Rua Antonio Sibinel, 165", 
+                    City = "Jundiai", 
+                    Country = "Brasil", 
+                    PostalCode = "13212160"
+                }
         };
             context.Customers.AddRange(customers);
 
