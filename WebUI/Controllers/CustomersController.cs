@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebUI.Infrastructure;
 using WebUI.Models;
+using WWM.Application.Customers.Commands;
 using WWM.Application.Customers.Queries;
 using WWM.Domain.Entities;
-using WWM.Persistence;
+using WWM.Persistence.Context;
 
 namespace WebUI.Controllers
 {
@@ -59,16 +60,17 @@ namespace WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email")] CreateCustomer customer)
         {
-            if (ModelState.IsValid)
-            {
-                customer.Id = Guid.NewGuid();
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(customer);
+            //if (ModelState.IsValid)
+            //{
+            //    //customer.Id = Guid.NewGuid();
+            //    _context.Add(customer);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            await Mediator.Send(customer);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Customers/Edit/5

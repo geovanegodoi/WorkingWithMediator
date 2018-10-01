@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WWM.Persistence;
+using WWM.Persistence.Context;
 using WWM.Application.Customers.Queries;
 using System.Reflection;
 using MediatR;
 using WWM.Application.Mappers;
+using Persistence.Repository;
+using Persistence.UnitOfWork;
 
 namespace WebUI
 {
@@ -29,6 +31,10 @@ namespace WebUI
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddMediatR(typeof(GetCustomerListHandler).GetTypeInfo().Assembly);
+
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

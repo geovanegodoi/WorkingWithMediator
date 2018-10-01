@@ -1,9 +1,13 @@
 ﻿using System;
+using MediatR;
+using WWM.Application.Customers.Models;
 
-namespace WWM.Domain.Entities
+namespace WWM.Application.Customers.Commands
 {
-    public class Customer : Entity
+    public class CreateCustomer : IRequest<CustomerDetailModel>
     {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string Email { get; set; }
