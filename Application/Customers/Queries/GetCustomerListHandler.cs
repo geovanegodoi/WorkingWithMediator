@@ -4,29 +4,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Repository;
 using WWM.Application.Customers.Models;
 using WWM.Application.Infrastructure;
-using WWM.Persistence;
+using WWM.Persistence.Context;
 
 namespace WWM.Application.Customers.Queries
 {
-    public class GetCustomerListHandler : BaseHandler<AppDbContext>, IRequestHandler<GetCustomerList, List<CustomerListModel>>
+    public class GetCustomerListHandler : BaseHandler<ICustomerRepository>, IRequestHandler<GetCustomerList, List<CustomerListModel>>
     {
-        public GetCustomerListHandler(AppDbContext context) 
-            : base(context)
+        public GetCustomerListHandler(ICustomerRepository repository) 
+            : base(repository)
         {
 
         }
 
-        public Task<List<CustomerListModel>> Handle(GetCustomerList request, CancellationToken cancellationToken)
+        public async Task<List<CustomerListModel>> Handle(GetCustomerList request, CancellationToken cancellationToken)
         {
-            return Context.Customers.Select(c =>
+            return await Repository.GetAll().Select(c =>
                 new CustomerListModel
                 {
                     Id = c.Id,
                     Name = c.Name,
                     Email = c.Email
-                }).ToListAsync(cancellationToken);
+            }).ToListAsync(cancellationToken);
         }
     }
 }

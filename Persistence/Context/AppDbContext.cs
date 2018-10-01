@@ -1,7 +1,7 @@
 ﻿using WWM.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace WWM.Persistence
+namespace WWM.Persistence.Context
 {
     public class AppDbContext : DbContext
     {

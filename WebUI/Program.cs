@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using WWM.Persistence;
+using WWM.Persistence.Context;
 
 namespace WebUI
 {

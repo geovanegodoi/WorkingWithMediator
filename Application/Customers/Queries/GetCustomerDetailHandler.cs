@@ -3,24 +3,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Persistence.Repository;
 using WWM.Application.Customers.Models;
 using WWM.Application.Exceptions;
 using WWM.Application.Infrastructure;
 using WWM.Domain.Entities;
-using WWM.Persistence;
+using WWM.Persistence.Context;
 
 namespace WWM.Application.Customers.Queries
 {
-    public class GetCustomerDetailHandler : BaseHandler<AppDbContext>, IRequestHandler<GetCustomerDetail, CustomerDetailModel>
+    public class GetCustomerDetailHandler : BaseHandler<ICustomerRepository>, IRequestHandler<GetCustomerDetail, CustomerDetailModel>
     {
-        public GetCustomerDetailHandler(AppDbContext context) 
-            : base(context)
+        public GetCustomerDetailHandler(ICustomerRepository repository) 
+            : base(repository)
         {
         }
 
         public async Task<CustomerDetailModel> Handle(GetCustomerDetail request, CancellationToken cancellationToken)
         {
-            var entity = await Context.Customers.FindAsync(request.Id);
+            var entity = await Repository.GetById(request.Id, cancellationToken);
 
             if (entity == null)
             {

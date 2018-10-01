@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace WWM.Domain.Entities
+namespace WWM.Application.Customers.Models
 {
-    public class Customer : Entity
+    public class CustomerDetailModel
     {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string Email { get; set; }

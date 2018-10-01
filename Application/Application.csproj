@@ -12,6 +12,7 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Mappers\" />
+    <Folder Include="Customers\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR" Version="5.1.0" />

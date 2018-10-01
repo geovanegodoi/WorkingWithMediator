@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WWM.Domain.Entities;
 
-namespace WWM.Persistence
+namespace WWM.Persistence.Context
 {
     public class AppDbContextInitializer
     {
