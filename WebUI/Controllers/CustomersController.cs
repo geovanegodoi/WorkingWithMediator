@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebUI.Filters;
 using WebUI.Infrastructure;
 using WWM.Application.Customers.Commands;
+using WWM.Application.Customers.Models;
 using WWM.Application.Customers.Queries;
 using WWM.Domain.Entities;
 using WWM.Persistence.Context;
@@ -59,9 +61,10 @@ namespace WebUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateModel]
-        public async Task<IActionResult> Create([Bind("Name,Email")] CreateCustomer customer)
+        public async Task<IActionResult> Create([Bind("Name,Email")] CustomerDetailModel customer)
         {
-            await Mediator.Send(customer);
+            await Mediator.Send(Mapper.Map<CreateCustomer>(customer));
+
             return RedirectToAction(nameof(Index));
         }
 

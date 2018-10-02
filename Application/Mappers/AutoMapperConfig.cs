@@ -20,6 +20,10 @@ namespace WWM.Application.Mappers
         {
             cfg.CreateMap<Customer, CustomerDetailModel>();
 
+            cfg.CreateMap<CreateCustomer, CustomerDetailModel>();
+
+            cfg.CreateMap<CustomerDetailModel, CreateCustomer>();
+
             cfg.CreateMap<CreateCustomer, Customer>()
                .AfterMap((src, dst) => dst.Id = src.Id == Guid.Empty ? Guid.NewGuid() : src.Id);
         }
