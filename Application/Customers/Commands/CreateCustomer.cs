@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using MediatR;
 using WWM.Application.Customers.Models;
 
@@ -8,6 +9,7 @@ namespace WWM.Application.Customers.Commands
     {
         public Guid Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public string Email { get; set; }

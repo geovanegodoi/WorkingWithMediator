@@ -1,13 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebUI.Filters;
 using WebUI.Infrastructure;
-using WebUI.Models;
 using WWM.Application.Customers.Commands;
+using WWM.Application.Customers.Models;
 using WWM.Application.Customers.Queries;
 using WWM.Domain.Entities;
 using WWM.Persistence.Context;
@@ -60,16 +60,11 @@ namespace WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email")] CreateCustomer customer)
+        [ValidateModel]
+        public async Task<IActionResult> Create([Bind("Name,Email")] CustomerDetailModel customer)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    //customer.Id = Guid.NewGuid();
-            //    _context.Add(customer);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            await Mediator.Send(customer);
+            await Mediator.Send(Mapper.Map<CreateCustomer>(customer));
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -109,6 +104,7 @@ namespace WebUI.Controllers
         }
 
         // GET: Customers/Delete/5
+        [ValidateCustomerExists]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
