@@ -26,7 +26,13 @@ namespace WebUI.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await Mediator.Send(new GetCustomerList()));
+            Console.WriteLine($"{DateTime.Now} :: Controller.Index >>>");
+
+            var model = await Mediator.Send(new GetCustomerListQuery());
+
+            Console.WriteLine($"{DateTime.Now} :: Controller.Index <<<");
+
+            return View(model);
         }
 
         // GET: Customers/Details/5
@@ -36,7 +42,7 @@ namespace WebUI.Controllers
             {
                 return NotFound();
             }
-            return View(await Mediator.Send(new GetCustomerDetail{Id = id.Value}));
+            return View(await Mediator.Send(new GetCustomerDetailQuery{Id = id.Value}));
         }
 
         // GET: Customers/Edit/5
@@ -46,7 +52,7 @@ namespace WebUI.Controllers
             {
                 return NotFound();
             }
-            return View(await Mediator.Send(new GetCustomerDetail { Id = id.Value }));
+            return View(await Mediator.Send(new GetCustomerDetailQuery { Id = id.Value }));
         }
 
         // GET: Customers/Create
@@ -61,9 +67,13 @@ namespace WebUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateModel]
-        public async Task<IActionResult> Create([Bind("Name,Email")] CustomerDetailModel customer)
+        public async Task<IActionResult> Create(CustomerDetailModel customer)
         {
-            await Mediator.Send(Mapper.Map<CreateCustomer>(customer));
+            Console.WriteLine($"{DateTime.Now} :: Controller.Create >>>");
+
+            await Mediator.Send(Mapper.Map<CreateCustomerCommand>(customer));
+
+            Console.WriteLine($"{DateTime.Now} :: Controller.Create <<<");
 
             return RedirectToAction(nameof(Index));
         }

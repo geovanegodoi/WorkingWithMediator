@@ -2,14 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using MediatR;
 using WWM.Application.Customers.Models;
+using WWM.Application.Infrastructure;
 
 namespace WWM.Application.Customers.Commands
 {
-    public class CreateCustomer : IRequest<CustomerDetailModel>
+    public abstract class BaseCustomerCommand<TResponse> : BaseCommand<TResponse>
     {
         public Guid Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
         public string Email { get; set; }

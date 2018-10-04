@@ -8,24 +8,13 @@ namespace WWM.Application.Mappers
 {
     public static class AutoMapperConfig
     {
-        public static void RegisterMappings()
+        public static MapperConfiguration RegisterMappings()
         {
-            Mapper.Initialize(cfg => 
-            { 
-                ApplyAll(cfg); 
+            return new MapperConfiguration(cfg => {
+                cfg.AddProfile(new DomainToModelMappingProfile());
+                cfg.AddProfile(new ModelToDomainMappingProfile());
+                cfg.AddProfile(new ModelToModelMappingProfile());
             });
-        }
-
-        private static void ApplyAll(IMapperConfigurationExpression cfg)
-        {
-            cfg.CreateMap<Customer, CustomerDetailModel>();
-
-            cfg.CreateMap<CreateCustomer, CustomerDetailModel>();
-
-            cfg.CreateMap<CustomerDetailModel, CreateCustomer>();
-
-            cfg.CreateMap<CreateCustomer, Customer>()
-               .AfterMap((src, dst) => dst.Id = src.Id == Guid.Empty ? Guid.NewGuid() : src.Id);
         }
     }
 }
