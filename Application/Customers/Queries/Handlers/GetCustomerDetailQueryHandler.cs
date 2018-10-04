@@ -15,8 +15,8 @@ namespace WWM.Application.Customers.Queries.Handlers
 {
     public class GetCustomerDetailQueryHandler : BaseHandler<ICustomerRepository, GetCustomerDetailQuery, CustomerDetailModel>
     {
-        public GetCustomerDetailQueryHandler(ICustomerRepository repository) 
-            : base(repository)
+        public GetCustomerDetailQueryHandler(ICustomerRepository repository, IMediator mediator) 
+            : base(repository, mediator)
         {
         }
 

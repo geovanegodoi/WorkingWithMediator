@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Repository;
 using WWM.Application.Customers.Models;
@@ -13,8 +14,8 @@ namespace WWM.Application.Customers.Queries.Handlers
 {
     public class GetCustomerListQueryHandler : BaseHandler<ICustomerRepository, GetCustomerListQuery, List<CustomerListModel>>
     {
-        public GetCustomerListQueryHandler(ICustomerRepository repository) 
-            : base(repository)
+        public GetCustomerListQueryHandler(ICustomerRepository repository, IMediator mediator) 
+            : base(repository, mediator)
         {
 
         }

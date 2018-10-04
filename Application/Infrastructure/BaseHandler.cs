@@ -20,9 +20,10 @@ namespace WWM.Application.Infrastructure
 
         protected TRepository Repository => _repository;
 
-        protected BaseHandler(TRepository repository)
+        protected BaseHandler(TRepository repository, IMediator mediator)
         {
             _repository = repository;
+            _mediator = mediator;
         }
 
         protected void NotifyValidationErros(BaseCommand command)

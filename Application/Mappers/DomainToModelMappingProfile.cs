@@ -5,11 +5,11 @@ using WWM.Domain.Entities;
 
 namespace WWM.Application.Mappers
 {
-    public class DomainToModelMappingProfile : Profile
+    public static class DomainToModelMapping
     {
-        public DomainToModelMappingProfile()
+        public static void ApplyMapping(IMapperConfigurationExpression cfg)
         {
-            CreateMap<Customer, CustomerDetailModel>();
+            cfg.CreateMap<Customer, CustomerDetailModel>();
         }
     }
 }

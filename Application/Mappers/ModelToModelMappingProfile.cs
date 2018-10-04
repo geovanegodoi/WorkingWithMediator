@@ -1,15 +1,18 @@
 ﻿using System;
 using AutoMapper;
 using WWM.Application.Customers.Commands;
+using WWM.Application.Customers.Events;
 using WWM.Application.Customers.Models;
 
 namespace WWM.Application.Mappers
 {
-    public class ModelToModelMappingProfile : Profile
+    public static class ModelToModelMapping
     {
-        public ModelToModelMappingProfile()
+        public static void ApplyMapping(IMapperConfigurationExpression cfg)
         {
-            CreateMap<CustomerDetailModel, CreateCustomerCommand>();
+            cfg.CreateMap<CustomerDetailModel, CreateCustomerCommand>();
+
+            cfg.CreateMap<CreateCustomerCommand, CustomerCreatedEvent>();
         }
     }
 }

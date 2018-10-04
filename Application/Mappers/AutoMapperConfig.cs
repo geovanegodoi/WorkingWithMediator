@@ -8,12 +8,12 @@ namespace WWM.Application.Mappers
 {
     public static class AutoMapperConfig
     {
-        public static MapperConfiguration RegisterMappings()
+        public static void RegisterMappings()
         {
-            return new MapperConfiguration(cfg => {
-                cfg.AddProfile(new DomainToModelMappingProfile());
-                cfg.AddProfile(new ModelToDomainMappingProfile());
-                cfg.AddProfile(new ModelToModelMappingProfile());
+            Mapper.Initialize(cfg => {
+                DomainToModelMapping.ApplyMapping(cfg);
+                ModelToDomainMapping.ApplyMapping(cfg);
+                ModelToModelMapping.ApplyMapping(cfg);
             });
         }
     }

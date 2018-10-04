@@ -19,6 +19,7 @@
     <Folder Include="Customers\Commands\Handlers\" />
     <Folder Include="Customers\Events\Handlers\" />
     <Folder Include="Customers\Queries\Handlers\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR" Version="5.1.0" />
