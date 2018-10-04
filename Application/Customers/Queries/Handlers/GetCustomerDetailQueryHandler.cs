@@ -13,9 +13,9 @@ using WWM.Persistence.Context;
 
 namespace WWM.Application.Customers.Queries.Handlers
 {
-    public class CustomerDetailQueryHandler : BaseHandler<ICustomerRepository, GetCustomerDetailQuery, CustomerDetailModel>
+    public class GetCustomerDetailQueryHandler : BaseHandler<ICustomerRepository, GetCustomerDetailQuery, CustomerDetailModel>
     {
-        public CustomerDetailQueryHandler(ICustomerRepository repository) 
+        public GetCustomerDetailQueryHandler(ICustomerRepository repository) 
             : base(repository)
         {
         }

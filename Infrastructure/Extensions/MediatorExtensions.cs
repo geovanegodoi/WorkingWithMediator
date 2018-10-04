@@ -16,7 +16,7 @@ namespace Infrastructure.Extensions
 
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
-            services.AddMediatR(typeof(CustomerListQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetCustomerListQueryHandler).GetTypeInfo().Assembly);
         }
     }
 }

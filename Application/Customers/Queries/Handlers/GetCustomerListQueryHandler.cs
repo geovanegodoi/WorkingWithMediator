@@ -11,9 +11,9 @@ using WWM.Application.Infrastructure;
 
 namespace WWM.Application.Customers.Queries.Handlers
 {
-    public class CustomerListQueryHandler : BaseHandler<ICustomerRepository, GetCustomerListQuery, List<CustomerListModel>>
+    public class GetCustomerListQueryHandler : BaseHandler<ICustomerRepository, GetCustomerListQuery, List<CustomerListModel>>
     {
-        public CustomerListQueryHandler(ICustomerRepository repository) 
+        public GetCustomerListQueryHandler(ICustomerRepository repository) 
             : base(repository)
         {
 
