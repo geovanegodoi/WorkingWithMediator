@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Persistence.Repository;
-using WWM.Application.Customers.Commands;
 using WWM.Application.Customers.Events;
 using WWM.Application.Customers.Models;
 using WWM.Application.Extensions;
@@ -23,17 +21,13 @@ namespace WWM.Application.Customers.Commands.Handlers
 
         public override async Task<CustomerDetailModel> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
-            Console.WriteLine($"{DateTime.Now} :: CreateCustomerHandler.Handle >>>");
-
             var entity = Mapper.Map<Customer>(request);
 
             await Repository.Add(entity, cancellationToken);
 
             await Repository.SaveChanges(cancellationToken);
 
-            Mediator.PublishAsync(Mapper.Map<CustomerCreatedEvent>(request));
-
-            Console.WriteLine($"{DateTime.Now} :: CreateCustomerHandler.Handle <<<");
+            //Mediator.PublishAsync(Mapper.Map<CustomerCreatedEvent>(request));
 
             return Mapper.Map<CustomerDetailModel>(entity);
         }

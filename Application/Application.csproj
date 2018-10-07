@@ -1,11 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>WWM.Application</RootNamespace>
     <AssemblyName>WWM.Application</AssemblyName>
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="Customers\" />
     <Folder Include="Customers\Models\" />
@@ -20,6 +18,14 @@
     <Folder Include="Customers\Events\Handlers\" />
     <Folder Include="Customers\Queries\Handlers\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Cities\" />
+    <Folder Include="Cities\Models\" />
+    <Folder Include="Cities\Commands\" />
+    <Folder Include="Cities\Commands\Handlers\" />
+    <Folder Include="Cities\Events\" />
+    <Folder Include="Cities\Events\Handlers\" />
+    <Folder Include="Cities\Queries\" />
+    <Folder Include="Cities\Queries\Handlers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR" Version="5.1.0" />

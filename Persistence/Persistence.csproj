@@ -16,5 +16,6 @@
     <Folder Include="Context\" />
     <Folder Include="UnitOfWork\" />
     <Folder Include="Repository\Customer\" />
+    <Folder Include="Repository\City\" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,8 @@ namespace WWM.Persistence.Context
         public void SeedEverything(AppDbContext context)
         {
             SeedCustomers(context);
+
+            SeedCities(context);
         }
 
         public void SeedCustomers(AppDbContext context)
@@ -39,8 +41,30 @@ namespace WWM.Persistence.Context
                     Country = "Brasil", 
                     PostalCode = "13212160"
                 }
-        };
+            };
             context.Customers.AddRange(customers);
+
+            context.SaveChanges();
+        }
+
+        public void SeedCities(AppDbContext context)
+        {
+            var cities = new[]
+            {
+                new City {
+                    Name = "Jundiai"
+                },
+                new City {
+                    Name = "Campinas"
+                },
+                new City {
+                    Name = "Valinhos"
+                },
+                new City {
+                    Name = "Vinhedo"
+                }
+            };
+            context.Cities.AddRange(cities);
 
             context.SaveChanges();
         }

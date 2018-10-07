@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using WWM.Application.Cities.Models;
 using WWM.Application.Customers.Models;
 using WWM.Domain.Entities;
 
@@ -10,6 +11,8 @@ namespace WWM.Application.Mappers
         public static void ApplyMapping(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Customer, CustomerDetailModel>();
+
+            cfg.CreateMap<City, CityDetailModel>();
         }
     }
 }

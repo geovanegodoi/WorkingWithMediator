@@ -23,11 +23,7 @@ namespace Persistence.Repository
 
         public virtual async Task Add(TEntity obj, CancellationToken cancellationToken)
         {
-            Console.WriteLine($"{DateTime.Now} :: Repository.Add >>>");
-
             await DbSet.AddAsync(obj, cancellationToken);
-
-            Console.WriteLine($"{DateTime.Now} :: Repository.Add <<<");
         }
 
         public void Dispose()
@@ -38,8 +34,6 @@ namespace Persistence.Repository
 
         public virtual IQueryable<TEntity> GetAll()
         {
-            Console.WriteLine($"{DateTime.Now} :: Repository.GetAll >>>");
-
             return DbSet;
         }
 
@@ -50,19 +44,13 @@ namespace Persistence.Repository
 
         public virtual async Task Remove(Guid id, CancellationToken cancellationToken)
         {
-            var entity = await DbSet.FindAsync(id, cancellationToken);
+            var entity = await GetById(id, cancellationToken);
             Context.Remove(entity);
         }
 
         public virtual async Task<int> SaveChanges(CancellationToken cancellationToken)
         {
-            Console.WriteLine($"{DateTime.Now} :: Repository.SaveChanges >>>");
-
-            var result = await Context.SaveChangesAsync(cancellationToken);
-
-            Console.WriteLine($"{DateTime.Now} :: Repository.SaveChanges <<<");
-
-            return result;
+            return await Context.SaveChangesAsync(cancellationToken);
         }
 
         public async virtual Task Update(TEntity obj, CancellationToken cancellationToken)

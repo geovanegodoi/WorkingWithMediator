@@ -16,7 +16,7 @@ namespace WWM.Application.Infrastructure
 
         private readonly TRepository _repository;
 
-        protected IMediator Mediator => _mediator; // ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
+        protected IMediator Mediator => _mediator;
 
         protected TRepository Repository => _repository;
 

@@ -22,19 +22,13 @@ namespace WWM.Application.Customers.Queries.Handlers
 
         public override async Task<List<CustomerListModel>> Handle(GetCustomerListQuery request, CancellationToken cancellationToken)
         {
-            Console.WriteLine($"{DateTime.Now} :: GetCustomerListHandler.Handle >>>");
-
-            var model = await Repository.GetAll().Select(c =>
+            return await Repository.GetAll().Select(c =>
                 new CustomerListModel
                 {
                     Id = c.Id,
                     Name = c.Name,
                     Email = c.Email
             }).ToListAsync(cancellationToken);
-
-            Console.WriteLine($"{DateTime.Now} :: GetCustomerListHandler.Handle <<<");
-
-            return model;
         }
     }
 }
