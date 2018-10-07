@@ -11,5 +11,9 @@ namespace WWM.Persistence.Context
         }
 
         public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
     }
 }

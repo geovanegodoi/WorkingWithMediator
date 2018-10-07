@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>WWM.Domain</RootNamespace>
+    <AssemblyName>WWM.Domain</AssemblyName>
   </PropertyGroup>
 
 </Project>

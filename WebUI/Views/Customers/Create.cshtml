@@ -1,4 +1,5 @@
 @model WWM.Application.Customers.Models.CustomerDetailModel
+@inject WWM.Service.City.ICityService CityService
 
 @{
     ViewData["Title"] = "Create";
@@ -28,6 +29,13 @@
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <select asp-for="City" class="form-control" asp-items="@(new SelectList(CityService.GetCityList(), "Id", "Name"))"></select>
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
@@ -36,7 +44,7 @@
 <br />
 <div>
     <a asp-action="Index">
-        <input type="button" value="Back to List" class="btn btn-default"/>
+        <input type="button" value="Back to List" class="btn btn-default" />
     </a>
 </div>
 

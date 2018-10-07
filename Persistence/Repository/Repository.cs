@@ -44,7 +44,7 @@ namespace Persistence.Repository
 
         public virtual async Task Remove(Guid id, CancellationToken cancellationToken)
         {
-            var entity = await DbSet.FindAsync(id, cancellationToken);
+            var entity = await GetById(id, cancellationToken);
             Context.Remove(entity);
         }
 

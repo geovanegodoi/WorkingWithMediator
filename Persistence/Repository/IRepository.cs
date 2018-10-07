@@ -7,7 +7,12 @@ using WWM.Domain.Entities;
 
 namespace Persistence.Repository
 {
-    public interface IRepository<TEntity> : IDisposable 
+    public interface IRepository
+    {
+
+    }
+
+    public interface IRepository<TEntity> : IRepository, IDisposable 
         where TEntity : Entity
     {
         Task Add(TEntity obj, CancellationToken cancellationToken);

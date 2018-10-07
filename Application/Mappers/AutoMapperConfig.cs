@@ -10,22 +10,11 @@ namespace WWM.Application.Mappers
     {
         public static void RegisterMappings()
         {
-            Mapper.Initialize(cfg => 
-            { 
-                ApplyAll(cfg); 
+            Mapper.Initialize(cfg => {
+                DomainToModelMapping.ApplyMapping(cfg);
+                ModelToDomainMapping.ApplyMapping(cfg);
+                ModelToModelMapping.ApplyMapping(cfg);
             });
-        }
-
-        private static void ApplyAll(IMapperConfigurationExpression cfg)
-        {
-            cfg.CreateMap<Customer, CustomerDetailModel>();
-
-            cfg.CreateMap<CreateCustomer, CustomerDetailModel>();
-
-            cfg.CreateMap<CustomerDetailModel, CreateCustomer>();
-
-            cfg.CreateMap<CreateCustomer, Customer>()
-               .AfterMap((src, dst) => dst.Id = src.Id == Guid.Empty ? Guid.NewGuid() : src.Id);
         }
     }
 }
