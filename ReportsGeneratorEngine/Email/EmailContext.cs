@@ -1,18 +1,36 @@
 ﻿using System.Threading.Tasks;
+using ReportsGeneratorEngine.Exceptions;
 using ReportsGeneratorEngine.Models;
+using ReportsGeneratorEngine.Policies.CircuitBreaker;
 
 namespace ReportsGeneratorEngine.Email
 {
     public interface IEmailService
     {
-        Task<bool> SendEmailAsync(EmailModel emailModel);
+        Task ChangeSmtpAsync();
+        IEmailCircuitBreaker CircuitBreaker();
+        Task<EmailResponse> SendEmailAsync(EmailModel emailModel);
     }
 
     public class EmailContext : IEmailService
     {
-        public Task<bool> SendEmailAsync(EmailModel emailModel)
+        private static int retry = 0;
+        private IEmailCircuitBreaker _circuitBreaker;
+
+        public EmailContext(IEmailCircuitBreaker circuitBreaker)
         {
-            return Task.FromResult(result: true);
+            _circuitBreaker = circuitBreaker;
+        }
+
+        public Task ChangeSmtpAsync() => Task.CompletedTask;
+
+        public IEmailCircuitBreaker CircuitBreaker() => _circuitBreaker;
+
+        public Task<EmailResponse> SendEmailAsync(EmailModel emailModel)
+        {
+            var statusCode = FailureRules.ThrowFail() ? FailureRules.FAIL_CODE : FailureRules.SUCESS_CODE;
+
+            return Task.FromResult(result: new EmailResponse(statusCode));
         }
     }
 }

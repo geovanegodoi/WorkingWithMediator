@@ -20,7 +20,7 @@ namespace ReportsGeneratorEngine.Notifications.Handlers
 
         public async Task Handle(EmailSentNotification notification, CancellationToken cancellationToken)
         {
-            _logger.Log($"Email sent sucessfully!", notification.Email);
+            _logger.LogInfo($"Email sent sucessfully!", notification.Email);
 
             if (notification.HasError())
             {

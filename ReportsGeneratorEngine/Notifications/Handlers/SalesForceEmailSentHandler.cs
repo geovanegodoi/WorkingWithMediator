@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Polly;
 using ReportsGeneratorEngine.External;
 using ReportsGeneratorEngine.Logger;
 
@@ -17,17 +19,22 @@ namespace ReportsGeneratorEngine.Notifications.Handlers
             _repository = databaseContext;
         }
 
-        public Task Handle(EmailSentNotification notification, CancellationToken cancellationToken)
+        public async Task Handle(EmailSentNotification notification, CancellationToken cancellationToken)
         {
             // comunicate with salesforce API
-            var message = $"message to salesforce, {notification.Email.ToString()}";
-            var response = _salesforceApi.PostMessage(message);
+            var message = $"message to salesforce, {notification.Email}";
+
+            /*
+            var response = await Policy
+                .HandleResult<Task<bool>>(r => r.Result.Equals(false))
+                .WaitAndRetry(3, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)))
+                .Execute(() => _salesforceApi.PostMessageAsync(message));
+            */
+            var response = await _salesforceApi.PostMessageAsync(message);
 
             // write result in database
             var databaseLog = $"Message : {message} | Response : {response}";
-            _repository.WriteAsync(databaseLog);
-
-            return Task.CompletedTask;
+            await _repository.WriteAsync(databaseLog);
         }
     }
 }
