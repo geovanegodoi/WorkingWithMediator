@@ -6,7 +6,7 @@ using ReportsGeneratorEngine.Email;
 using ReportsGeneratorEngine.Logger;
 using ReportsGeneratorEngine.Mediator;
 using ReportsGeneratorEngine.Notifications;
-using ReportsGeneratorEngine.Requests;
+using ReportsGeneratorEngine.Policies.Retry;
 
 namespace ReportsGeneratorEngine.Requests.Handlers
 {
@@ -15,29 +15,33 @@ namespace ReportsGeneratorEngine.Requests.Handlers
         private readonly IMediatorContext _mediator;
         private readonly IEmailService _emailService;
         private readonly ILogger _logger;
+        private readonly IEmailRetryPolicy _emailPolicy;
 
-        public SendEmailHandler(IMediatorContext mediator, IEmailService emailService, ILogger logger)
+        public SendEmailHandler(IMediatorContext mediator, IEmailService emailService, ILogger logger, IEmailRetryPolicy emailPolicy)
         {
             _mediator     = mediator;
             _emailService = emailService;
             _logger       = logger;
+            _emailPolicy  = emailPolicy;
         }
 
         protected override async Task Handle(SendEmailRequest request, CancellationToken cancellationToken)
         {
-            var notification = new EmailSentNotification();
+            var notification = new EmailSentNotification().WithEmail(request.Email);
 
             try
             {
-                notification.WithEmail(request.Email).WithError();
+                var result = await _emailPolicy.RunAsync(() => _emailService.SendEmailAsync(request.Email));
 
-                var result = await _emailService.SendEmailAsync(request.Email);
-
-                if (result)
+                if (result.IsOk())
                 {
                     notification.WithSuccess();
                 }
-                _logger.Log("Sending notification <EmailSentNotification>");
+                else
+                {
+                    notification.WithError(error: result.Message);
+                }
+                _logger.LogInfo("Sending notification <EmailSentNotification>");
             }
             catch (Exception ex)
             {

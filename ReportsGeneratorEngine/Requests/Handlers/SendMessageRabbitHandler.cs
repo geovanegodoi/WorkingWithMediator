@@ -33,7 +33,7 @@ namespace ReportsGeneratorEngine.Requests.Handlers
             _rabbitService.WithConfiguration(configuration).SendMessage(message);
 
             // Logando que a mensagem foi envia para a fila
-            _logger.Log("Mensagem foi enviada para a fila", message);
+            _logger.LogInfo("Mensagem foi enviada para a fila", message);
 
             return Task.CompletedTask;
         }

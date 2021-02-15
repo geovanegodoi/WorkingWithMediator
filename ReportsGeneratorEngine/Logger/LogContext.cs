@@ -6,16 +6,36 @@ namespace ReportsGeneratorEngine.Logger
 {
     public interface ILogger
     {
-        void Log(string message);
+        void LogInfo(string message);
 
-        void Log(string message, object obj);
+        void LogInfo(string message, object obj);
+
+        void LogWarn(string message);
+
+        void LogWarn(string message, object obj);
+
+        void LogFatal(string message);
+
+        void LogFatal(string message, object obj);
     }
 
     public class LoggerContext : ILogger
     {
-        public void Log(string message) => Log(message, new { });
+        public void LogInfo(string message) => Log(type: "info", message);
 
-        public void Log(string message, object obj)
+        public void LogInfo(string message, object obj) => Log(type: "info", message, obj);
+
+        public void LogWarn(string message) => Log(type: "warn", message);
+
+        public void LogWarn(string message, object obj) => Log(type: "warn", message, obj);
+
+        public void LogFatal(string message) => Log(type: "fatal", message);
+
+        public void LogFatal(string message, object obj) => Log(type: "fatal", message, obj);
+
+        private void Log(string type, string message) => Log(type, message, new { });
+
+        private void Log(string type, string message, object obj)
         {
             var objSerialized = JsonSerializer.Serialize(obj,
                 new JsonSerializerOptions {
@@ -24,7 +44,7 @@ namespace ReportsGeneratorEngine.Logger
                     IgnoreReadOnlyProperties = true
                 });
 
-            Console.WriteLine($"Message: {message} | Object : {objSerialized}");
+            Console.WriteLine($"Type: {type} | Message: {message} | Object : {objSerialized}");
         }
     }
 }

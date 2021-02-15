@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Threading.Tasks;
+using ReportsGeneratorEngine.Exceptions;
 
 namespace ReportsGeneratorEngine
 {
@@ -18,6 +19,10 @@ namespace ReportsGeneratorEngine
 
         public Task WriteAsync(string statement)
         {
+            if (ExceptionRules.ThrowException())
+            {
+                throw new System.Exception();
+            }
             return Task.CompletedTask;
         }
     }

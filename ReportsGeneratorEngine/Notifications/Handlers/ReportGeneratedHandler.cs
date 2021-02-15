@@ -21,7 +21,7 @@ namespace ReportsGeneratorEngine.Notifications.Handlers
 
         public async Task Handle(ReportGeneratedNotification notification, CancellationToken cancellationToken)
         {
-            _logger.Log("Report generated sucessfully!", notification.Report);
+            _logger.LogInfo("Report generated sucessfully!", notification.Report);
 
             if (notification.HasError())
             {
